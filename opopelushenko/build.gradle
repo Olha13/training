@@ -1,0 +1,30 @@
+group 'test.test'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+test{
+    testLogging.showStandardStreams = true
+}
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+//    jCenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.0.1'
+}
+
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '1.12'
+//}
+
+task runTest (type: JavaExec, dependsOn: test){
+    main = 'test.I_test'
+    classpath sourceSets.test.runtimeClasspath
+}
+check.dependsOn.add(runTest)
