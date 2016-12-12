@@ -18,7 +18,6 @@ public class testSettings {
 
     @Before
     public void doBeforeTest(){
-
         System.setProperty("webdriver.gecko.driver", "D:\\Training\\opopelushenko\\src\\test\\resources\\geckodriver.exe");
         driver = new FirefoxDriver();
         driver.get("https://www.amazon.com/");

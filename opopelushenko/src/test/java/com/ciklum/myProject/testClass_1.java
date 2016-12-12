@@ -1,35 +1,33 @@
 package com.ciklum.myProject;
-
+import Pages.*;
 import org.junit.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class testClass_1 extends testSettings{
 
-    @Test(timeout = 8000)
+
+    @Test
     public void test_1() throws InterruptedException {
+Thread.sleep(5000);
+        driver.findElement(By.cssSelector(".nav-line-2")).click();
+Thread.sleep(3000);
+        LoggedInPage log = new LoggedInPage((FirefoxDriver) driver);
+Thread.sleep(1000);
+        AmazonSearchPage search = log.logInToAmazon("test.matviienko@gmail.com", "123456Matviienko");
+Thread.sleep(2000);
+        CatalogPage catalog = search.findProduct("Oven");
+Thread.sleep(5000);
+        ProductPage product = catalog.klickOnProduct(1);
+Thread.sleep(5000);
+        Double p = product.getProductPrice();
+        System.out.println("========================"+p);
+Thread.sleep(5000);
+        CardPage card = product.clickOnAddToCard();
+        Double s = card.getSubtotalValue();
 
-        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Oven");
-        driver.findElement(By.cssSelector(".nav-input[value='Go']")).click();
-
-//        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
-//        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-
-        Thread.sleep(6000);
-
-        List<WebElement> element = driver.findElements(By.cssSelector(".s-item-container"));
-        int m = element.size();
-        System.out.print("=======================" + m);
-        assert m == 32;
-
-
+        System.out.print("========================"+s);
+        Assert.assertEquals(p,s);
     }
 }
